@@ -1,0 +1,47 @@
+// pick a random number between 1 and 6 for our roll of the die
+// add computer roll to compete against
+
+var die1 = Math.floor(Math.random()*6 + 1);
+var die2 = Math.floor(Math.random()*6 + 1);
+var Cdie1 = Math.floor(Math.random()*6 + 1);
+var Cdie2 = Math.floor(Math.random()*6 + 1);
+// die1 = die2 = 1;  // test double 1 case
+
+// create scoring function
+var tally = function(d1,d2){
+   // if either die roll is 1 then score should be 0 
+    if (d1 === 1 || d2 === 1)  {
+        return 0;
+    }
+    // Check if there are doubles.  If so, score should be
+    // double the sum of the two dice
+    else if(d1 === d2)   {
+        return 2*(d1+d2);
+    }
+    else    {
+        return d1 + d2;
+    } 
+};
+
+var score = tally(die1,die2);
+var Cscore = tally(Cdie1,Cdie2);
+
+console.log(" I  rolled a "+die1+" and a "+die2+" for a score of "+score+".");
+console.log("CPU rolled a "+Cdie1+" and a "+Cdie2+" for a score of "+Cscore+".");
+
+// Print win statements, conditions based on scores
+if (score > Cscore){
+    console.log("*** I win ... awesome !");
+}
+else if (score < Cscore)    {
+    console.log("*** CPU wins... dang !");
+}
+else    {
+    if(score === 0) {
+        console.log("*** Tied at zero, we both stink !")
+    }
+    else    {
+        console.log("*** Tie game, nice match. <shake hands>")
+    }
+}
+
