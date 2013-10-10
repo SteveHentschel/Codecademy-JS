@@ -1,0 +1,14 @@
+//  I see that JavaScript already has 'substring' and 'substr' methods built-in,
+//      but it's nice to build one yourself and see how they might work with recursion.
+
+var substring = function(all, start, end)   {
+    
+    if (start >= end)   {
+        return (all[start]);
+    }
+    else    {
+        return all[start] + substring(all, start+1, end);
+    }
+};
+
+console.log(substring("My quick brown fox has spots.", 19, 27));
