@@ -1,0 +1,52 @@
+//
+//  add Continue option and new scoring system based on roll probabilities
+
+var newArray = [];
+
+// Init Roll List so we count their occurances in the loops below
+
+for(i=2; i<=12;i++)
+    newArray[i] = 0;
+
+// Increment the array to have the proper probabilities 
+
+for(i = 1; i <= 6; i++ ){
+  for(y = 1; y <= 6; y++ ){
+    newArray[i+y]++;
+  }
+}
+
+// Initialize game variables
+var score = 0;
+var totalScore = 0;
+var answer = "";
+var die1;
+var die2;
+
+
+do {                                            // start play loop
+
+    die1 = Math.floor(Math.random()*6 + 1);
+    die2 = Math.floor(Math.random()*6 + 1);
+    
+    if(die1===die2){                            // end Game on doubles roll
+        totalScore = 0;
+        alert("You rolled double "+die1+"'s.  Game Over.");
+        break;
+    }
+    else if (die1+die2 === 4)   {               // 'special' roll of 4
+        score = 50;
+    }
+    else if (die1+die2 === 10)   {              // 'special' roll of 4
+        score = 100;
+    }
+    else    {                                   // defult score is (10 minus probability) x 10
+        score = (10-newArray[die1+die2]) * 10;
+    }
+
+    totalScore += score;
+    answer = prompt("You rolled a "+die1+" & "+die2+" for a score of "+ score+".   Total score = "+ totalScore+".   Continue ?  y/n",'y');
+    
+} while (answer[0] === 'y');                    // continue loop or chicken out ?
+
+if (totalScore !== 0) alert("Your final score = "+totalScore+".  Nice run!");
