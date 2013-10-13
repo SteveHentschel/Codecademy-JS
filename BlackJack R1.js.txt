@@ -1,0 +1,55 @@
+// Hand constructor which deals 2 cards to a hand.
+function Hand()  {
+    this.card1 = deal();
+    this.card2 = deal();
+    this.score = function() {                   //  Get hand score here too.
+        return this.card1.getValue() + this.card2.getValue();
+    };
+}
+// Card constructor here, make sure to use private variables!
+function Card(s,n) {
+        var number = n;
+        var suit = s;
+        //getters
+        this.getNumber = function(){
+                return number;
+        };
+        this.getSuit = function(){
+                return suit;
+        };
+        this.getValue = function() {            //  Set value for each card
+            if (number >10) return 10;          //  Face cards are 10
+            if (number === 1) return 11;        //  Aces are always 11 for now
+            else return number;
+        };
+        
+}
+
+// Deal function returns a new card with a suit (random number from 1 to 4), 
+// and a card number (random number between 1 and 13)
+//   <<Note: this still could deal identical cards -- have to build a deck later on.>>
+var deal = function(){
+        var randNum = Math.floor(Math.random() * 13) + 1;
+        var randSuit = Math.floor(Math.random() * 4) + 1;
+        //the card
+        return new Card(randSuit, randNum);
+};
+
+// Set Hands and print out scores (some debug added)
+var myHand = new Hand();
+console.log("My Card1:  ",myHand.card1.getSuit(),myHand.card1.getNumber(),myHand.card1.getValue());
+console.log("My Card2:  ",myHand.card2.getSuit(),myHand.card2.getNumber(),myHand.card2.getValue());
+
+var yourHand = new Hand(); 
+console.log("Your Card1:  ",yourHand.card1.getSuit(),yourHand.card1.getNumber(),yourHand.card1.getValue());
+console.log("Your Card2:  ",yourHand.card2.getSuit(),yourHand.card2.getNumber(),yourHand.card2.getValue());
+
+
+console.log("I scored a "+myHand.score()+" and you scored a "+ yourHand.score());
+
+if(yourHand.score() > myHand.score())
+    console.log("You win!");
+else if(yourHand.score() < myHand.score())
+    console.log("I win!");
+else
+    console.log("We tied!");
