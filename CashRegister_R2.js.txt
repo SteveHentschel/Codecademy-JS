@@ -1,0 +1,49 @@
+//  A cash register change function to show recursion on lists within an object.
+//  The Codecademy tutorial was a bit tough to follow, but workable.  slh
+//   PS.  I also added nickels back in.
+
+
+var cashRegisterWithChange = {
+
+    total: 0,
+    change: 0,    
+    coinNames: ["five dollar bills", "one dollar bills", "quarters", "dimes", "nickels", "pennies"],
+    currency: [5.00, 1.00, 0.25, 0.10, 0.05, 0.01],
+
+	setTotal: function (amount) {
+		this.total = amount;
+	},
+	getPaid: function (amountPaid) {
+		if (this.total > amountPaid) {
+			console.log ("Not enough!");
+		} else {
+            this.change = amountPaid - this.total;
+			console.log ("Give them:");
+//          this.makeChange(this.coinNames, this.currency, 0);  (modified tutorial, don't need to
+            this.makeChange(0);                                 // pass lists if already properties
+	}
+	},
+    howManyCoins: function (coinName, coinAmount, coinsSoFar) {
+        if (this.change < coinAmount) {
+            console.log(coinsSoFar + " " + coinName);
+        } else {
+            this.change -= coinAmount;
+            this.change = this.change.toFixed(2);
+            this.howManyCoins(coinName, coinAmount, coinsSoFar + 1);
+        }
+    },
+    makeChange: function (index) {
+        if (index >= this.currency.length) {
+            return;
+        }
+        else    {
+            this.howManyCoins(this.coinNames[index], this.currency[index], 0);
+            this.makeChange(index + 1);
+        }
+    }
+};    
+
+//  Two test cases
+cashRegisterWithChange.setTotal(100);
+cashRegisterWithChange.getPaid(50);
+cashRegisterWithChange.getPaid(109.94);
