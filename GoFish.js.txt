@@ -1,0 +1,48 @@
+//  'Guts' of a simple Go Fish Game using recursion and array processing.
+//  Was especially interesting since the original goFish function was messed up,
+//  and had to be rewritten and debugged from scratch.  slh
+
+
+
+var cards = new Array("ace","king","queen","jack","10","9","8","7","6","5","4","3","2");
+var hand = [];
+
+function dealHand(numberOfCards){
+    //if numberOfCards is greater than zero
+	if(numberOfCards > 0){
+        // Store a random number
+		rand = Math.floor(Math.random() * cards.length);
+		// Add card to the hand array
+		hand.push(cards[rand]);
+		// Output the card
+		console.log("Your card is " + cards[rand]);
+		// remove card selected from cards array
+		cards.splice(rand,1);
+		// remove from numberOfCards
+		numberOfCards--;
+		// recursive function call 
+		dealHand(numberOfCards);
+	}	
+}
+
+function goFish(num, guess){
+    if (num === 0){                                     // base case
+        console.log("Go Fish: No matches for " + guess);
+        return;
+    }    
+    else {                                              // recursive case
+        if(hand[num-1] === guess){                      //   check for match
+            console.log("A Match for " + hand[num-1]);
+            return;
+        }
+        num--;                                          // decrement control
+        goFish(num, guess);                             // recurse
+    }  
+}
+
+// Call dealHand and goFish
+nCards = 5;
+dealHand(nCards);
+var guess = prompt("Guess a card ...");
+if (guess !== null) goFish(nCards,guess);
+console.log("End");
