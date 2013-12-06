@@ -1,0 +1,15 @@
+// Toggle photos on/off when button clicked
+//  then toggle picture text when mouseover/leave the picture
+
+$(document).ready(function() { 
+  $("#tour").on("click", "button", function() { 
+    $(".photos").slideToggle();
+  });
+  
+  var showPhotos = function() {
+    $(this).find("span").slideToggle();
+  };
+  
+  $(".photos").on("mouseenter", "li", showPhotos);
+  $(".photos").on("mouseleave", "li", showPhotos);
+});
